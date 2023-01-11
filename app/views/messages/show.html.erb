@@ -1,0 +1,27 @@
+<div class="col-md-8 col-md-offset-2">
+	<div class="message-show">
+		<!--showing message tittle and its description-->
+		<h2><%= @message.title %></h2>
+		<!--add timestamp and user name-->
+		 <p class="message-posted-by">Posted by:<%= @message.user.email %><%= time_ago_in_words(@message.created_at) %> ago.</p>
+		<p class="message-desc"><%= @message.description %></p>
+
+		<h3>Comment</h3>
+		<%= render @message.comments %><!-- this is where the _comment.html.erb partile file will be rendered -->
+
+		<h3 class="reply-to-msg">Reply on the message:</h3>
+		<%= render 'comments/form' %><!-- rendering the comment form prefixet with comments since its not on the same directory with show message -->
+		<div class="link btn-group">
+			<!--back, delet and edit links-->
+			<%= link_to "Back", root_path,  class:"btn btn-default" %>
+
+			<% if user_signed_in? %><!--a condition to check if user is loged in before limitin the action-->
+			  <% if @message.user_id == current_user.id %><!--a condition to chech if the user requesting a certain actin is the one who created it-->
+
+				<%= link_to "Edit Message", edit_message_path(@message), class:"btn btn-default" %>
+				<%= button_to "Delete Message", message_path(@message), method: :delete, data:{confirm:"are you sure?"},  class:"btn btn-default" %>
+			  <%end%>
+			<%end%>
+		</div>
+	</div>
+</div>

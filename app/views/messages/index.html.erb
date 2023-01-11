@@ -1,0 +1,11 @@
+<!--looping through the message title in a descending order in index view-->
+<% @messages.each do |message| %>
+	<div class="col-md-4">
+		<div class="message">
+		    <h2 class="message-title"><%= message.title %></h2>
+			<%= link_to "Read Message", message_path(message), class:"btb btn-default" %>
+			
+		</div>
+	</div>
+
+<% end %>
